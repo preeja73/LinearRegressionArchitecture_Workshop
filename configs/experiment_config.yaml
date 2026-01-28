@@ -1,0 +1,6 @@
+data_path: data/raw/california.csv
+feature: MedInc
+target: MedHouseVal
+test_size: 0.2
+learning_rate: 0.01
+iterations: 1000
