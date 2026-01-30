@@ -1,6 +1,19 @@
-data_path: data/raw/california.csv
-feature: MedInc
-target: MedHouseVal
-test_size: 0.2
-learning_rate: 0.01
-iterations: 1000
+project:
+  random_seed: 42
+
+data:
+  csv_path: "data/raw/california.csv"
+
+experiment:
+  feature_column: "MedInc"
+  target_column: "MedHouseVal"
+  test_size: 0.2
+  normalize: true
+
+manual_lr:
+  learning_rate: 0.01
+  iterations: 2000
+
+outputs:
+  results_csv: "experiments/results.csv"
+  plots_dir: "experiments/plots"

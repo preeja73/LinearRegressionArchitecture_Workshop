@@ -1,6 +1,8 @@
 # Linear Regression Architecture Workshop
 
-This project implements univariate linear regression on housing data, demonstrating both sklearn-based and from-scratch implementations using gradient descent.
+This project implements univariate linear regression on housing data, demonstrating both sklearn-based and from-scratch implementations using gradient descent, following Robot PM MLOps design principles.
+
+---
 
 ## Summary of Work Completed
 
@@ -10,147 +12,143 @@ This project implements univariate linear regression on housing data, demonstrat
 - **Database Storage**: Implemented SQLite database storage for structured data management
 - **Processed Data**: Cleaned and processed data stored in `data/processed/california_clean.csv` for model training
 
+---
+
 ### 2. Exploratory Data Analysis (EDA)
 - Statistical summaries using `describe()`
-- Data visualization with histograms
+- Data visualization with histograms and scatter plots
 - Data quality assessment
+
+---
 
 ### 3. Linear Regression Models
 - **Model 1 (sklearn)**: Standard Linear Regression using scikit-learn
-- **Model 2 (From Scratch)**: Custom implementation using gradient descent algorithm
-- Both models trained on the same dataset with identical train-test splits
-- Comprehensive evaluation using RMSE, MAE, and R² metrics
+- **Model 2 (From Scratch)**: Custom implementation using gradient descent
+- Both models trained on the same dataset
+- Evaluation using RMSE, MAE, and R²
+
+---
 
 ### 4. Modular Architecture
-- **Data Loading**: `src/data_loader.py` - CSV file loading functionality
-- **Preprocessing**: `src/preprocessing.py` - Train-test split utilities
-- **Model Training**: `src/model.py` - Model training functions
-- **Evaluation**: `src/evaluation.py` - Performance metric calculations
+- **Data Loading**: `src/data_loader.py`
+- **Preprocessing**: `src/preprocessing.py`
+- **Model Training**: `src/model.py`
+- **Evaluation**: `src/evaluation.py`
+- **Pipeline**: `src/run_experiment.py`
+
+---
 
 ### 5. Configuration Management
-- YAML-based configuration file (`configs/experiment_config.yaml`)
+- YAML-based configuration file: `configs/experiment_config.yaml`
 - Centralized parameter management for reproducibility
 
+---
+
 ### 6. Experiment Tracking
-- Results storage in CSV format (`experiments/results.csv`)
-- Model comparison framework
+- Results stored in `experiments/results.csv`
+- Metrics tracked for each run
+
+---
 
 ## Key Design Decisions
 
-### 1. **Modular Code Structure**
-- **Decision**: Separated functionality into distinct modules (`data_loader`, `preprocessing`, `model`, `evaluation`)
-- **Rationale**: 
-  - Promotes code reusability and maintainability
-  - Enables easy testing and debugging
-  - Follows single responsibility principle
-  - Facilitates collaboration and future extensions
+### 1. Modular Code Structure
+Separated functionality into modules (`data_loader`, `preprocessing`, `model`, `evaluation`) to improve:
+- Reusability
+- Maintainability
+- Testability
+- Extensibility
 
-### 2. **Dual Model Implementation**
-- **Decision**: Implemented both sklearn and from-scratch gradient descent models
-- **Rationale**:
-  - Educational value: demonstrates understanding of underlying algorithms
-  - Performance comparison: validates custom implementation against industry standard
-  - Flexibility: from-scratch allows customization and deeper control
+---
 
-### 3. **Multiple Data Source Support**
-- **Decision**: Implemented CSV, API, and database data sources
-- **Rationale**:
-  - Real-world applicability: different projects use different data sources
-  - Demonstrates versatility in data handling
-  - Prepares for production scenarios with diverse data pipelines
+### 2. Dual Model Implementation
+Implemented both sklearn and from-scratch models to:
+- Demonstrate algorithm understanding
+- Validate results
+- Enable comparison
 
-### 4. **Configuration-Driven Approach**
-- **Decision**: Used YAML configuration file for experiment parameters
-- **Rationale**:
-  - Reproducibility: easy to track and reproduce experiments
-  - Flexibility: change parameters without modifying code
-  - Best practice: aligns with MLOps principles
-  - Version control friendly: configurations can be tracked in git
+---
 
-### 5. **Structured Project Layout**
-- **Decision**: Organized project with separate folders for data (raw and processed), notebooks, source code, configs, and experiments
-- **Rationale**:
-  - Clear separation of concerns: raw data vs processed data
-  - Scalability: easy to add new components
-  - Industry standard: follows common ML project structures
-  - Maintainability: easier navigation and organization
-  - Data pipeline clarity: distinguishes between raw input and cleaned data ready for modeling
+### 3. Multiple Data Source Support
+CSV, API, and database sources were implemented to simulate real-world ML pipelines.
 
-### 6. **Comprehensive Evaluation Metrics**
-- **Decision**: Used RMSE, MAE, and R² for model evaluation
-- **Rationale**:
-  - RMSE: Penalizes large errors, same units as target variable
-  - MAE: Provides intuitive error interpretation
-  - R²: Explains variance explained by the model
-  - Multiple metrics provide holistic performance assessment
+---
 
-### 7. **Notebook-Based Workflow**
-- **Decision**: Used Jupyter notebooks for exploration and analysis
-- **Rationale**:
-  - Interactive development and visualization
-  - Educational tool: step-by-step execution
-  - Documentation: code and results in one place
-  - Easy sharing and presentation
+### 4. Configuration-Driven Approach
+YAML configuration allows:
+- Easy experiment reproduction
+- Parameter tuning without code changes
+- Version control of experiment setups
+
+---
+
+### 5. Structured Project Layout
+Project uses separate folders for:
+- Raw data
+- Processed data
+- Notebooks
+- Source code
+- Configurations
+- Experiments
+
+This improves clarity and scalability.
+
+---
+
+### 6. Evaluation Metrics
+- RMSE: penalizes large errors
+- MAE: intuitive error metric
+- R²: variance explained
+
+---
+
+### 7. Notebook-Based Workflow
+- EDA and learning implemented in notebooks
+- Architecture documented in `RobotPM_MLOps.ipynb`
+
+---
 
 ## Project Structure
 
-```
 LinearRegressionArchitecture_Workshop/
+├── configs/
+│ └── experiment_config.yaml
 ├── data/
-│   ├── raw/              # Raw data files (CSV, database)
-│   │   ├── california.csv
-│   │   └── housing.db
-│   └── processed/        # Processed/cleaned data files
-│       └── california_clean.csv
-├── notebooks/            # Jupyter notebooks for analysis
-│   ├── EDA.ipynb         # Exploratory Data Analysis
-│   └── linear_regression.ipynb  # Main regression implementation
-├── src/                  # Modular source code
-│   ├── data_loader.py    # Data loading utilities
-│   ├── preprocessing.py  # Data preprocessing functions
-│   ├── model.py          # Model training functions
-│   └── evaluation.py     # Evaluation metrics
-├── configs/              # Configuration files
-│   └── experiment_config.yaml
-├── experiments/          # Experiment results
-│   └── results.csv
-├── requirements.txt      # Python dependencies
-└── README.md            # Project documentation
-```
+│ ├── raw/
+│ │ ├── california.csv
+│ │ ├── housing.sqlite
+│ │ └── toronto_api_raw.json
+│ └── processed/
+│ ├── california_clean.csv
+│ └── california_from_sql.csv
+├── experiments/
+│ ├── plots/
+│ └── results.csv
+├── notebooks/
+│ ├── EDA.ipynb
+│ ├── linear_regression.ipynb
+│ └── RobotPM_MLOps.ipynb
+├── src/
+│ ├── data_loader.py
+│ ├── preprocessing.py
+│ ├── model.py
+│ ├── evaluation.py
+│ └── run_experiment.py
+├── requirements.txt
+└── README.md
 
-## How to Run
+Dependencies
 
-1. **Create virtual environment**
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
+pandas
 
-2. **Install requirements**
-   ```bash
-   pip install -r requirements.txt
-   ```
+numpy
 
-3. **Run notebooks**
-   - Open Jupyter: `jupyter notebook` or `jupyter lab`
-   - Navigate to `notebooks/` folder
-   - Run `EDA.ipynb` for data exploration
-   - Run `linear_regression.ipynb` for model implementation and comparison
+matplotlib
 
-## Dependencies
+scikit-learn
 
-- pandas: Data manipulation and analysis
-- numpy: Numerical computations
-- matplotlib: Data visualization
-- scikit-learn: Machine learning algorithms and utilities
-- sqlalchemy: Database operations
-- requests: API data fetching
-- pyyaml: Configuration file parsing
+sqlalchemy
 
-## Results
+requests
 
-The project compares two linear regression implementations:
-- **Sklearn Model**: Industry-standard implementation
-- **From Scratch Model**: Custom gradient descent implementation
-
-Both models are evaluated on the same test set using RMSE, MAE, and R² metrics, with results stored in `experiments/results.csv`.
+pyyaml

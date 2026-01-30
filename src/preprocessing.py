@@ -1,22 +1,11 @@
 from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
 
+def split_data(X, y, test_size, seed):
+    return train_test_split(X, y, test_size=test_size, random_state=seed)
 
-def split(X, y, test_size):
-    """
-    Split the dataset into training and testing sets.
-    
-    Parameters:
-    -----------
-    X : array-like
-        Feature matrix (input variables)
-    y : array-like
-        Target vector (output variable)
-    test_size : float
-        Proportion of the dataset to include in the test split (e.g., 0.2 for 20%)
-        
-    Returns:
-    --------
-    tuple
-        X_train, X_test, y_train, y_test - Split datasets
-    """
-    return train_test_split(X, y, test_size=test_size)
+def normalize_data(X_train, X_test):
+    scaler = StandardScaler()
+    X_train_scaled = scaler.fit_transform(X_train)
+    X_test_scaled = scaler.transform(X_test)
+    return X_train_scaled, X_test_scaled
